@@ -7,9 +7,9 @@ TRUNCATE
 
 INSERT INTO homely_users (username, password)
 VALUES
-    ('demo@demo.com', 'password123'),
-    ('roger@roger.com', 'roger'),
-    ('joe@mocha.com', 'joemocha');
+    ('demo@demo.com', '$2a$12$HZ/fjbzxttUj0irTLdDXhefefVlcn2Myir7mlEF0FzoXWzr36wbyO'),
+    ('roger@roger.com', '$2a$12$PqeTLzbDeLuSrG4UV6RtIuSaBIAB8Ak25QGVEP06D.N7K7boE/dlK'),
+    ('joe@mocha.com', '$2a$12$W8RbWDtZ9IE0xajpcWqFHubk5R/GABjqBoWly82x2Dh6i/HZ2d67m');
 
 INSERT INTO homely_posts (name, address, userNotes, url, price_rating, size_rating, location_rating, user_id)
 VALUES
