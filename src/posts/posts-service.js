@@ -1,3 +1,5 @@
+const xss = require('xss')
+
 const PostsService = {
     getPosts(knex) {
         return knex.select('*').from('homely_posts')
@@ -11,11 +13,10 @@ const PostsService = {
             .insert(newPost)
             .into('homely_posts')
             .returning('*')
-            .where('user_id', newPost.user_id)
-            .then((array) => {
-                return array[0];
-            })
-        );
+            .then(([post]) => post)
+      .then(post =>
+        PostsService.getById(db, post.id)
+      ))
     },
     insertUserPost(knex, newPost) {
         return knex

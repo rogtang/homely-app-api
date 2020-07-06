@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const xss = require('xss')
 const PostsService = require('./posts-service')
+const { requireAuth } = require('../middleware/jwt-auth')
 
 const postsRouter = express.Router()
 const bodyParser = express.json()
@@ -15,7 +16,6 @@ const serializePost = post => ({
   price_rating: Number(post.price_rating),
   size_rating: Number(post.size_rating),
   location_rating: Number(post.location_rating),
-  user_id: post.user_id
 })
 
 postsRouter
@@ -28,8 +28,8 @@ postsRouter
       })
       .catch(next)
     })
-    .post(bodyParser, (req, res, next) => {
-        const { name, url, address, usernotes, price_rating, size_rating, location_rating, user_id} = req.body;
+    .post(requireAuth, bodyParser, (req, res, next) => {
+        const { name, url, address, usernotes, price_rating, size_rating, location_rating} = req.body;
 
         if (!name) {
           return res.status(400).send({
@@ -39,7 +39,7 @@ postsRouter
         
         if (!address) {
           return res.status(400).send({
-            error: { message: "'address' is required" }
+            error: { message: "'Address' is required" }
           })
         }
 
@@ -63,10 +63,10 @@ postsRouter
       
       
       const knexInstance = req.app.get('db')
-      const newPost = {name, address, price_rating, size_rating, location_rating}
+      const newPost = { name, url, address, usernotes, price_rating, size_rating, location_rating}
+      console.log(req.body);
+      newPost.user_id = req.user.id;
       
-      newPost.user_id = user_id;
-
       PostsService.insertPost(knexInstance, newPost)
       .then(post => {
         res
