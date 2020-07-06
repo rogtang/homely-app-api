@@ -5,7 +5,7 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const cors = require('cors')
 
-const authRouter = require('./auth/auth-router')
+//const authRouter = require('./auth/auth-router')
 
 const app = express()
 
@@ -17,7 +17,7 @@ app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
 
-app.use('/api/auth', authRouter)
+//app.use('/api/auth', authRouter)
 
 app.get('/api', (req, res) => {
        res.send('welcome homely!')
