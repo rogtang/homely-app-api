@@ -24,7 +24,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/users', usersRouter)
 
 app.get('/api', (req, res) => {
-       res.send('welcome homely!')
+       res.send('Hello, world!')
      })
 
 app.use(function errorHandler(error, req, res, next) {

@@ -3,6 +3,7 @@ const express = require("express");
 const xss = require("xss");
 const PostsService = require("./posts-service");
 const { requireAuth } = require("../middleware/jwt-auth");
+const { isWebUri } = require('valid-url')
 
 const postsRouter = express.Router();
 const bodyParser = express.json();
@@ -20,7 +21,8 @@ const serializePost = (post) => ({
 
 postsRouter
   .route("/")
-  .get((req, res, next) => {
+  //GET method now requires authentication as well
+  .get(requireAuth, (req, res, next) => {
     const knexInstance = req.app.get("db");
     PostsService.getPosts(knexInstance)
       .then((posts) => {
@@ -67,6 +69,12 @@ postsRouter
       return res.status(400).send({
         error: { message: "A location rating is required" },
       });
+    }
+
+    if ((url && !isWebUri(url))) {
+      return res.status(400).send({
+        error: { message: "'url' must be a valid URL"}
+      })
     }
 
     const knexInstance = req.app.get("db");
