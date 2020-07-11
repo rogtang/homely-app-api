@@ -17,6 +17,7 @@ const serializePost = (post) => ({
   price_rating: Number(post.price_rating),
   size_rating: Number(post.size_rating),
   location_rating: Number(post.location_rating),
+  user_id: post.user_id
 });
 
 postsRouter
@@ -85,7 +86,7 @@ postsRouter
       usernotes,
       price_rating,
       size_rating,
-      location_rating,
+      location_rating
     };
 
     newPost.user_id = req.user.id;
@@ -135,6 +136,7 @@ postsRouter
       price_rating,
       size_rating,
       location_rating,
+      user_id
     } = req.body;
 
     const postToUpdate = { name,
@@ -143,7 +145,9 @@ postsRouter
       usernotes,
       price_rating,
       size_rating,
-      location_rating}
+      location_rating,
+      user_id
+    }
 
     const numberOfValues = Object.values(postToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
