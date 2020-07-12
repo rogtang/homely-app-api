@@ -25,7 +25,8 @@ postsRouter
   //GET method now requires authentication as well
   .get(requireAuth, (req, res, next) => {
     const knexInstance = req.app.get("db");
-    PostsService.getPosts(knexInstance)
+    console.log(req.user)
+    PostsService.getByUser(knexInstance, req.user.id)
       .then((posts) => {
         res.json(posts.map(serializePost));
       })

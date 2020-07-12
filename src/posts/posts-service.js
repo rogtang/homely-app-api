@@ -5,10 +5,9 @@ const PostsService = {
     getById(knex, id){
         return knex.select('*').from('homely_posts').where('id', id).first()
     },
-    getByUser(knex, id) {
+    getByUser(knex, user_id) {
         return knex.select('*').from('homely_posts')
-        .join('homely_users', 'homely_posts.user_id', 'homely_users.id')
-        .where('homely_users.id', id)
+        .where('homely_posts.user_id', user_id)
     },
     insertPost(knex, newPost) {
         console.log(newPost)
