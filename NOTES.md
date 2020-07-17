@@ -20,3 +20,11 @@ join
 homely_users u
 on p.user_id = u.id
 where u.id = 7;
+
+
+production users:
+demo@demo.com
+password123
+
+roger@roger.com
+roger123
