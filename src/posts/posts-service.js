@@ -33,7 +33,6 @@ const PostsService = {
     },
     deletePost(knex, id) {
         return knex.from('homely_posts').where('id', id).delete()
-        .then(res => PostsService.getByUser(knex))
     },
     updatePost(knex, id, newPostFields) {
         return knex.from('homely_posts').where({id}).update(newPostFields);
